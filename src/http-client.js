@@ -194,7 +194,7 @@ const privateCall = ({
     const newData = noExtra ? data : { ...data, timestamp, signature }
 
     const fetchOptions = {
-      agent: proxy ? new httpsProxyAgent(proxy) : null,
+      agent: proxy ? new HttpsProxyAgent(proxy) : null,
     };
     
     fetch('https://api.ipify.org?format=json', fetchOptions)
