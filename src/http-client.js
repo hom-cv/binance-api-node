@@ -206,6 +206,7 @@ const privateCall = ({
       })
       .then(data => {
         const ipAddress = data.ip;
+        console.log('My fetch options:', fetchOptions)
         console.log('My IP Address:', ipAddress);
         return proxy
       })
