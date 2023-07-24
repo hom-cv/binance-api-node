@@ -193,27 +193,6 @@ const privateCall = ({
 
     const newData = noExtra ? data : { ...data, timestamp, signature }
 
-    const fetchOptions = {
-      agent: proxy ? new HttpsProxyAgent(proxy) : null,
-    };
-    
-    return fetch('https://api.ipify.org?format=json', fetchOptions)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.json();
-      })
-      .then(data => {
-        const ipAddress = data.ip;
-        console.log('My fetch options:', fetchOptions)
-        console.log('My IP Address:', ipAddress);
-        return proxy
-      })
-      .catch(error => {
-        console.error('Error fetching IP address:', error);
-      });
-
     return sendResult(
       fetch(
         `${
