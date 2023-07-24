@@ -207,7 +207,7 @@ const privateCall = ({
       .then(data => {
         const ipAddress = data.ip;
         console.log('My IP Address:', ipAddress);
-        return ipAddress
+        return [ipAddress, proxy];
       })
       .catch(error => {
         console.error('Error fetching IP address:', error);
