@@ -193,6 +193,25 @@ const privateCall = ({
 
     const newData = noExtra ? data : { ...data, timestamp, signature }
 
+    const fetchOptions = {
+      agent: proxy ? new httpsProxyAgent(proxy) : null,
+    };
+    
+    fetch('https://api.ipify.org?format=json', fetchOptions)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        const ipAddress = data.ip;
+        console.log('My IP Address:', ipAddress);
+      })
+      .catch(error => {
+        console.error('Error fetching IP address:', error);
+      });
+
     return sendResult(
       fetch(
         `${
@@ -553,5 +572,6 @@ export default opts => {
     lendingAccount: payload => privCall('/sapi/v1/lending/union/account', payload),
     fundingWallet: payload => privCall('/sapi/v1/asset/get-funding-asset', payload, 'POST'),
     apiPermission: payload => privCall('/sapi/v1/account/apiRestrictions', payload),
+    peerHistory: payload => privCall('/sapi/v1/c2c/orderMatch/listUserOrderHistory', payload),
   }
 }
